@@ -31,16 +31,18 @@ To install all the required dependencies execute the below command.
 ```bash
 $ pip install -r requirements.txt
 ```
+If any problem with installing requirements try refering [here](https://stackoverflow.com/questions/41457612/how-to-use-requirements-txt-to-install-all-dependencies-in-a-python-project)
 
-Then create the database in XAMPP using [tables.sql](tables.sql)
 
 Create an Environment Variable named ```youtube_api_key``` add your youtube API key to this variable
 
-To Run the Server execute the below command.
-```bash
-$ python server.py
-```
-To Start the API execute the below command.
+First start the API execute the below command.
 ```bash
 $ python app.py
 ```
+
+Then Run the Server execute the below command.
+```bash
+$ python server.py
+```
+

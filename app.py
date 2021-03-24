@@ -21,11 +21,14 @@ class Post(db.Model): # Creating DB Model
     defaultThumbnail= db.Column(db.String(50))
     mediumThumbnail= db.Column(db.String(50))
     highThumbnail= db.Column(db.String(50))
-
+    def create(self):
+        db.session.add(self)
+        db.session.commit()
+        return self
     def __repr__(self):
         return '<Post %s>' % self.title
 
-
+db.create_all()
 class PostSchema(ma.Schema):
     class Meta:
         fields = ("id", "title", "description","videoId","publishedAt","channelId","defaultThumbnail","mediumThumbnail","highThumbnail")
