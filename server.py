@@ -21,6 +21,7 @@ while True:
             q = keyword,
             order = 'date',
             type = 'video',
+            publishedAfter = '2020-03-01T00:00:00Z',
             maxResults	= 50
         )
     data = request.execute()
