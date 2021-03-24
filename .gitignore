@@ -1,1 +1,9 @@
 env/
+/apikey.txt
+/response_sort.py
+/get-pip.py
+/new.py
+/response.json
+/test.py
+/tables.sql
+/requirements.txt
