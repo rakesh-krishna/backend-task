@@ -3,27 +3,30 @@ import json
 import time
 import os
 import mysql.connector
-api_key = os.environ.get('youtube_api_key')
-print(api_key)
-youtube = build('youtube','v3',developerKey=api_key)
+
+api_key = os.environ.get('youtube_api_key')           # get youtube Data API key from the environment variables
+
 keyword = 'anime'
-mydb = mysql.connector.connect(
+
+youtube = build('youtube','v3',developerKey=api_key)  #Creating a YouTube service Object
+
+mydb = mysql.connector.connect(  #Creating Mysql connection Object
   host="localhost",
   user="root",
   password="",
   database="youtubetask"
 )
-while True:
-    print('while')
 
-    request = youtube.search().list(
-           part = 'snippet',
+while True:
+    request = youtube.search().list(  #creating a request object with 
+           part = 'snippet',   
             q = keyword,
             order = 'date',
             type = 'video',
-            publishedAfter = '2020-03-01T00:00:00Z',
+            publishedAfter = '2020-03-01T00:00:00Z', 
             maxResults	= 50
-        )
+        )  
+    
     data = request.execute()
     mycursor = mydb.cursor()
     for i in range(len(data['items'])):
@@ -37,12 +40,10 @@ while True:
             argument.append(data['items'][i]['snippet']['thumbnails']['default']['url'])
             argument.append(data['items'][i]['snippet']['thumbnails']['medium']['url'])
             argument.append(data['items'][i]['snippet']['thumbnails']['high']['url'])
-            sql = "INSERT INTO videos  VALUES (%s, %s, %s, %s, %s, %s, %s ,%s)"
+            sql = "INSERT INTO videos  VALUES (%s, %s, %s, %s, %s, %s, %s ,%s)"  #Necessary Details are added into the Database
             mycursor.execute(sql,argument)
-            print(i)
         except Exception as ex:
             print(ex)
         finally:
              mydb.commit()
-    time.sleep(30)
-    print('after sleep')
+    time.sleep(30) #30 seconds gap between each API request
